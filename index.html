@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flores Amarillas</title>
+
+     <!-- 
+
+Contáctame:
+
+    * Invitame un café
+ https://buymeacoffee.com/alexx.dev
+
+    * Portafolio Web
+ https://alexxdev.vercel.app
+
+    * Sigueme en tiktok
+ https://www.tiktok.com/@alexx.dev?is_from_webapp=1&sender_device=pc 
+ 
+    *Canal de WhatsApp
+ https://whatsapp.com/channel/0029VazQEXq90x2vIdNkrH1p
+
+-->
+
+    
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: 'Brush Script MT', cursive;
+            overflow: hidden;
+            cursor: url('1.png'), auto !important;
+
+        }
+
+        #video-fondo {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -1;
+            object-fit: cover;
+        }
+
+        .contenido {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .texto-amarillo-1 {
+            color: #ffba08;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            text-align: center;
+            user-select: none;
+        }
+
+        h1.texto-amarillo-1 {
+            top: 10%;
+            font-size: 6em;
+        }
+
+        p.texto-amarillo-1 {
+            bottom: 45%;
+            font-size: 3em;
+        }
+
+         .texto-amarillo-2 {
+            color: #ffba08;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            position: absolute;
+            left: 58%;
+            transform: translateX(-50%);
+            width: 100%;
+            text-align: center;
+            user-select: none;
+        }
+
+        h1.texto-amarillo-2 {
+            top: 15%;
+            font-size: 5em;
+        }
+
+        p.texto-amarillo-2 {
+            bottom: 45%;
+            font-size: 3em; 
+        }
+
+        #flor-movible {
+            position: absolute;
+            top: 50%;
+            left: 40%;
+            transform: translate(-50%, -50%);
+            width: 350px;
+            height: auto;
+            cursor: grab;
+            user-select: none;
+            animation: palpitar 2s infinite ease-in-out;
+        }
+
+        .arrastrando {
+            cursor: grabbing;
+            animation: none;
+            opacity: 0.8;
+            z-index: 1000;
+        }
+        
+        @keyframes palpitar {
+            0%, 100% {
+                transform: translate(-50%, -50%) scale(1);
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <video autoplay muted loop id="video-fondo">
+        <source src="video.mp4" type="video/mp4">
+        Tu navegador no soporta videos HTML5.
+    </video>
+
+    <div class="contenido">
+        <h1 class="texto-amarillo-1">Flores amarillas</h1>
+        
+        <img src="flores.png" alt="Flores Amarillas" id="flor-movible">
+        
+        <p class="texto-amarillo-2">21 de septiembre</p>
+    </div>
+
+    <script>
+        const florMovible = document.getElementById('flor-movible');
+
+        let esArrastrado = false;
+        let offsetX, offsetY;
+        
+        let posInicialX, posInicialY;
+
+        florMovible.addEventListener('mousedown', (e) => {
+            esArrastrado = true;
+            florMovible.classList.add('arrastrando');
+            
+            posInicialX = e.clientX;
+            posInicialY = e.clientY;
+            
+            offsetX = e.clientX - florMovible.offsetLeft;
+            offsetY = e.clientY - florMovible.offsetTop;
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!esArrastrado) return;
+            florMovible.style.left = `${e.clientX - offsetX}px`;
+            florMovible.style.top = `${e.clientY - offsetY}px`;
+        });
+
+        document.addEventListener('mouseup', (e) => {
+            if (!esArrastrado) return;
+            
+            esArrastrado = false;
+            florMovible.classList.remove('arrastrando');
+
+            const movido = Math.abs(e.clientX - posInicialX) > 5 || Math.abs(e.clientY - posInicialY) > 5;
+            
+            if (!movido) {
+                window.location.href = 'sobre.html';
+            }
+        });
+        
+        florMovible.addEventListener('touchstart', (e) => {
+            esArrastrado = true;
+            florMovible.classList.add('arrastrando');
+            
+            let touch = e.touches[0];
+            posInicialX = touch.clientX;
+            posInicialY = touch.clientY;
+            
+            offsetX = touch.clientX - florMovible.offsetLeft;
+            offsetY = touch.clientY - florMovible.offsetTop;
+        });
+        
+        document.addEventListener('touchmove', (e) => {
+            if (!esArrastrado) return;
+            e.preventDefault();
+            let touch = e.touches[0];
+            florMovible.style.left = `${touch.clientX - offsetX}px`;
+            florMovible.style.top = `${touch.clientY - offsetY}px`;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            if (!esArrastrado) return;
+
+            esArrastrado = false;
+            florMovible.classList.remove('arrastrando');
+            
+            let touch = e.changedTouches[0];
+            const movido = Math.abs(touch.clientX - posInicialX) > 5 || Math.abs(touch.clientY - posInicialY) > 5;
+
+            if (!movido) {
+                window.location.href = 'sobre.html';
+            }
+        });
+    </script>
+</body>
+</html>

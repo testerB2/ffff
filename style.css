@@ -1,0 +1,89 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    overflow: hidden; 
+}
+
+#video-fondo {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    z-index: -1; 
+    object-fit: cover; 
+}
+.contenido {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.texto-amarillo-1 {
+    color: #ffba08;
+    font-size: 3.5em;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.texto-amarillo-2 {
+    color: #ffde59;
+    font-size: 3.5em;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+p.texto-amarillo-1 {
+    font-size: 1.8em;
+}
+
+.imagen-animada {
+    width: 200px; 
+    margin: 20px 0;
+    cursor: pointer;
+    animation: palpitar 2s infinite ease-in-out;
+}
+
+.pagina-final {
+    background-image: url('fondo.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.contenido-final {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+    padding: 0 10%;
+    box-sizing: border-box;
+}
+
+.imagen-final {
+    max-width: 35%;
+    height: auto;
+    animation: aparecer 2.5s ease-in-out;
+}
+
+
+@keyframes palpitar {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
